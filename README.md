@@ -21,7 +21,7 @@ Description in points:
 
 Current Status of Implementation:
 
-The core of the program (conversion function) is complete. The user first needs to input the currency that he/she wants to convert from, and then input the currency that he/she needs to convert to. Then, the user needs to input the amount of money to be converted. The program will then output out the final amount. Major currencies like USD, INR, etc are already defined. 
+The conversion function is complete. The user first needs to input the currency that he/she wants to convert from, and then input the currency that he/she needs to convert to. Then, the user needs to input the amount of money to be converted. The program will then output out the final amount. Major currencies like USD, INR, etc are already defined. 
 
 
 
