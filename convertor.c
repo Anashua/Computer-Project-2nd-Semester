@@ -34,11 +34,8 @@ float cur_conv(float from_value, char from_curr[], char to_curr[])
 		to_rate = rates_to_comm[j];
 	    }
 	}
-	printf("\n %f %f", from_rate, to_rate);
 	common = from_value/from_rate;
-	printf("\n%f", common);
 	fin = common*to_rate;
-	printf("\n%f", fin);
 	return fin;
 }
 
