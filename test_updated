@@ -5,6 +5,8 @@
 int from_c,to_c,enteredAmount;
 char curr[][len]  = {"INR", "AUS", "SGP", "EURO", "POUND", "USD"}; ///I've still kept the array in here for future reference
 float rates_to_comm [len] = {72.812, 1.289, 1.40, 0.813, 0.705, 1.00};
+char new_curr[][len];
+float custom_conv;
 ///SOME FEATURES WE CAN FURTHER IMPLEMENT
 ///[DONE]A function to convert from one currency
 ///A function to add a new currency and its rate
@@ -133,7 +135,17 @@ float cur_conv(float from_value, char from_curr[], char to_curr[])
 	printf("\n%f", fin);
 	return fin;
 }
-
+void add_currency(){
+    printf("Please enter the short form of the currency you would like to enter : ");
+    scanf("%s", &new_curr);
+    printf("\nPlease enter the rate with respect to USD : ");
+    scanf("%f",&custom_conv);
+    c1*s;
+    s->next->next->next->next->next->next->next = (c1*)malloc(sizeof(c1));
+    s->next->next->next->next->next->next->next->name[40] = new_curr;
+    s->next->next->next->next->next->next->next->rate = custom_conv;
+}
+    
 int main(void)
 {
 
