@@ -8,10 +8,7 @@ Date:16-06-2021
 
 TITLE: CURRENCY CONVERTER
 
-
 Objectives: To convert value in one currency into another currency, and to be able to make, remove, or modify custom currencies, allowing the user to convert amounts from those currencies.
-
-
 
 Description in points:
 •	The user will be able to insert a monetary amount in one currency and receive the equivalent amount in another currency.
