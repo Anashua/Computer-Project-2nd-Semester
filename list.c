@@ -5,7 +5,7 @@
 struct currency
 {
     char  name[40];
-    int rate;
+    float rate;
 
 };
 struct node
@@ -17,17 +17,19 @@ struct mylist
 {
     struct node* head;
 };
+void fileList();
 void initialise(struct mylist*);
 void display(struct mylist*);
 void insert(struct mylist*,struct currency);
 struct currency addCurr();
 void displayCurr(struct currency);
 void info();
-
 static struct mylist list;
 ///MAIN
 int main()
 {
+    //This function must be the first one to be called 
+    fileList();
     info();
     return 0;
 }
@@ -91,13 +93,13 @@ struct currency addCurr()
     printf("\nEnter the name of the currency: ");
     scanf("%[^\n]",cur.name);
     printf("\nEnter its exchange rate in INR: ");
-    scanf("%d%c",&cur.rate);
+    scanf("%f%c",&cur.rate);
     return cur;
 }
 ///DISPLAYS A SINGLE CURRENCY
 void displayCurr(struct currency cur)
 {
-    printf("\n%s : %d \n",cur.name,cur.rate);
+    printf("\n%s : %f \n",cur.name,cur.rate);
 }
 void info()
 {
@@ -141,6 +143,29 @@ void info()
         }
         printf("Thankyou for using currency convertor :");
     }
+}
+void fileList()
+{
+    FILE *fp=fopen("currencies.csv","r");
+    char str[500];
+    int len=0;
+    while(!feof(fp))
+    {
+        fgets(str,100,fp);
+        len++;
+    }
+    rewind(fp);
+    for(int i=0;i<len;i++)
+    {
+        fgets(str,100,fp);
+        struct currency cur;
+        char *temp=strtok(str,",");
+        strcpy(cur.name,temp);
+        temp=strtok(NULL,",");
+        cur.rate=atof(temp);
+        insert(&list,cur);
+    }
+
 }
 
 
