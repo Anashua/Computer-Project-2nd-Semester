@@ -23,7 +23,9 @@ void display(struct mylist*);
 void insert(struct mylist*,struct currency);
 struct currency addCurr();
 void displayCurr(struct currency);
+void addNew();
 void info();
+///STATIC  VARIABLES
 static struct mylist list;
 ///MAIN
 int main()
@@ -122,10 +124,11 @@ void info()
                     break;
             case 2:
                     ////Call add currency function and add to a linked list
-                    printf("\nEnter data for a new curency\n");
-                    struct currency data;
-                    data=addCurr();
-                    insert(&list,data);
+                    // printf("\nEnter data for a new curency\n");
+                    // struct currency data;
+                    // data=addCurr();
+                    // insert(&list,data);
+                    addNew();
                     break;
             case 3:
                     ////Call delete currency function and delete from list
@@ -165,7 +168,22 @@ void fileList()
         cur.rate=atof(temp);
         insert(&list,cur);
     }
-
+}
+void addNew()
+{
+    printf("\nEnter data for a new curency\n");
+    struct currency data;
+    data=addCurr();
+    insert(&list,data);
+}
+//ADDS A CURRENCY TO THE CSV FILE 
+void addCSV(struct currency cur)
+{
+    FILE *fp=fopen("currencies.csv","a");
+    if(fp!=NULL)
+    {
+        
+    }
 }
 
 
