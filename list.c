@@ -107,13 +107,13 @@ void info()
     bool flag=true;
     while(flag)
     {
-        printf("Enter the action you want to perform: \n");
-        printf("1. Currency convertor:\n");
-        printf("2. Add a new currency to existing list:\n");
-        printf("3. Delete a currency from the given list:\n");
-        printf("4. Display list of currencies avaliable: \n");
-        printf("5. Modify currency value: \n");
-        printf("6. Exit function:");
+        printf("\nEnter the action you want to perform: \n");
+        printf("\n1. Currency convertor:\n");
+        printf("\n2. Add a new currency to existing list:\n");
+        printf("\n3. Delete a currency from the given list:\n");
+        printf("\n4. Display list of currencies avaliable: \n");
+        printf("\n5. Modify currency value: \n");
+        printf("\n6. Exit function:\n");
         scanf("%d%c",&choice);
         switch(choice)
         {
@@ -140,9 +140,9 @@ void info()
                     break;
             case 6:
                    flag=false;
-        }
-        printf("Thankyou for using currency convertor :");
+        } 
     }
+    printf("Thankyou for using currency convertor :");
 }
 void fileList()
 {
