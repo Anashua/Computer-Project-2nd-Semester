@@ -28,8 +28,7 @@ static struct mylist list;
 ///MAIN
 int main()
 {
-    
-    display(&list);
+    info();
     return 0;
 }
 ///INITIALISE LIST
@@ -107,33 +106,16 @@ void info()
     while(flag)
     {
         printf("Enter the action you want to perform: \n");
-        printf("1. Compare currencies:\n");
+        printf("1. Currency convertor:\n");
         printf("2. Add a new currency to existing list:\n");
         printf("3. Delete a currency from the given list:\n");
         printf("4. Display list of currencies avaliable: \n");
         printf("5. Modify currency value: \n");
         printf("6. Exit function:");
+        scanf("%d%c",&choice);
         switch(choice)
         {
             case 1:
-                    ///DISPLAY LIST OF AVAILABLE CURRENCIES
-
-                    ////CALL COMPARE CURRENCY FUNCTION
-                    ///currency compare function returns a float value
-                    ///it takes in 3 parameters
-                    ///a character array which is the currency entered 
-                    //the amount in the currency entered 
-                    ///another character array which is the currency to be converted into
-                    // float from_v, to_v;
-                    // char from_c[100], to_c[100];
-                    // printf("Enter the currency you would like to convert : ");
-                    // gets(from_c);
-                    // printf("\nEnter the currency you would like to convert to: ");
-                    // gets(to_c);
-                    // printf("\nEnter the amount of money you have right now : ");
-                    // scanf("\n%f", &from_v);
-                    // to_v = cur_conv(from_v, from_c, to_c);
-                    // printf("\nThe amount in %s is %f", to_c, to_v);
                     printf("\n*****************Currency convertor function********************\n");
                     break;
             case 2:
