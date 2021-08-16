@@ -5,7 +5,7 @@
 struct currency
 {
     char  name[40];
-    float rate;
+    int rate;
 
 };
 struct node
@@ -28,13 +28,6 @@ static struct mylist list;
 ///MAIN
 int main()
 {
-    struct currency data;
-    data=addCurr();
-    insert(&list,data);
-    //info();
-    data=addCurr();
-    insert(&list,data);
-    displayCurr(data);
     
     display(&list);
     return 0;
@@ -48,11 +41,11 @@ void initialise(struct mylist* l)
 void display(struct mylist* l)
 {
     struct node* traverse=l->head;
-    printf("\nThe currencies in the list are:\n");
     if(traverse==NULL)
         printf("\nNO CURRENCIES IN LIST\n");
     else
     {
+        printf("\nThe currencies in the list are:\n");
         while(traverse!=NULL)
         {
             displayCurr(traverse->currency);
@@ -64,7 +57,8 @@ void display(struct mylist* l)
 void insert(struct mylist* l,struct currency data)
 {
     struct node* temp=(struct node*) malloc(sizeof(struct node));
-    temp->currency=data;
+    strcpy(temp->currency.name,data.name);
+    temp->currency.rate=data.rate;
     temp->link=NULL;
     if(l->head==NULL)
     {
