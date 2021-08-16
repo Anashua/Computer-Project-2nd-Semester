@@ -23,7 +23,9 @@ void display(struct mylist*);
 void insert(struct mylist*,struct currency);
 struct currency addCurr();
 void displayCurr(struct currency);
+void addNew();
 void info();
+///STATIC  VARIABLES
 static struct mylist list;
 ///MAIN
 int main()
@@ -107,13 +109,13 @@ void info()
     bool flag=true;
     while(flag)
     {
-        printf("Enter the action you want to perform: \n");
-        printf("1. Currency convertor:\n");
-        printf("2. Add a new currency to existing list:\n");
-        printf("3. Delete a currency from the given list:\n");
-        printf("4. Display list of currencies avaliable: \n");
-        printf("5. Modify currency value: \n");
-        printf("6. Exit function:");
+        printf("\nEnter the action you want to perform: \n");
+        printf("\n1. Currency convertor:\n");
+        printf("\n2. Add a new currency to existing list:\n");
+        printf("\n3. Delete a currency from the given list:\n");
+        printf("\n4. Display list of currencies avaliable: \n");
+        printf("\n5. Modify currency value: \n");
+        printf("\n6. Exit function:\n");
         scanf("%d%c",&choice);
         switch(choice)
         {
@@ -122,10 +124,11 @@ void info()
                     break;
             case 2:
                     ////Call add currency function and add to a linked list
-                    printf("\nEnter data for a new curency\n");
-                    struct currency data;
-                    data=addCurr();
-                    insert(&list,data);
+                    // printf("\nEnter data for a new curency\n");
+                    // struct currency data;
+                    // data=addCurr();
+                    // insert(&list,data);
+                    addNew();
                     break;
             case 3:
                     ////Call delete currency function and delete from list
@@ -140,9 +143,9 @@ void info()
                     break;
             case 6:
                    flag=false;
-        }
-        printf("Thankyou for using currency convertor :");
+        } 
     }
+    printf("Thankyou for using currency convertor :");
 }
 void fileList()
 {
@@ -165,7 +168,22 @@ void fileList()
         cur.rate=atof(temp);
         insert(&list,cur);
     }
-
+}
+void addNew()
+{
+    printf("\nEnter data for a new curency\n");
+    struct currency data;
+    data=addCurr();
+    insert(&list,data);
+}
+//ADDS A CURRENCY TO THE CSV FILE 
+void addCSV(struct currency cur)
+{
+    FILE *fp=fopen("currencies.csv","a");
+    if(fp!=NULL)
+    {
+        
+    }
 }
 
 
