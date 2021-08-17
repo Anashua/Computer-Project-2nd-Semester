@@ -25,9 +25,13 @@ struct currency addCurr();
 void displayCurr(struct currency);
 void addNew();
 void addCSV();
+void modCurr();
+void delCurr();
+void delCSV(char*);
 void info();
 ///STATIC  VARIABLES
 static struct mylist list;
+static int len=0;
 ///MAIN
 int main()
 {
@@ -72,7 +76,7 @@ void insert(struct mylist* l,struct currency data)
     {
         struct node* present=l->head;
         struct node* previous=NULL;
-        while(present!=NULL && strcmp(present->currency.name,data.name)>0)
+        while(present!=NULL && strcmp(present->currency.name,data.name)<0)
         {
             previous=present;
             present=present->link;
@@ -102,7 +106,7 @@ struct currency addCurr()
 ///DISPLAYS A SINGLE CURRENCY
 void displayCurr(struct currency cur)
 {
-    printf("\n%s : %f \n",cur.name,cur.rate);
+    printf("%s : %f \n",cur.name,cur.rate);
 }
 void info()
 {
@@ -133,26 +137,26 @@ void info()
                     break;
             case 3:
                     ////Call delete currency function and delete from list
-                    printf("NOT READY\n");
+                    delCurr();
                     break;
             case 4:
                     ////Call display currency function
                     display(&list);
                     break;
             case 5:
-                    printf("NOT READY\n");
+                    modCurr();
                     break;
             case 6:
                    flag=false;
         } 
     }
-    printf("Thankyou for using currency convertor :");
+    printf("\nThankyou for using currency convertor");
 }
 void fileList()
 {
     FILE *fp=fopen("currencies.csv","r");
     char str[500];
-    int len=0;
+    
     while(!feof(fp))
     {
         fgets(str,100,fp);
@@ -170,22 +174,6 @@ void fileList()
         insert(&list,cur);
     }
 }
-// void addNew()
-// {
-//     printf("\nEnter data for a new curency\n");
-//     struct currency data;
-//     data=addCurr();
-//     insert(&list,data);
-// }
-// //ADDS A CURRENCY TO THE CSV FILE 
-// void addCSV(struct currency cur)
-// {
-//     FILE *fp=fopen("currencies.csv","a");
-//     if(fp!=NULL)
-//     {
-        
-//     }
-// }
 void addNew()
 {
     printf("\nEnter data for a new curency\n");
@@ -213,6 +201,85 @@ void addCSV(struct currency cur)
     }  
     fclose(fp); 
 }
+void modCurr()
+{
+    printf("Enter the name of the currency to be modified : ");
+    char modify[40];
+    gets(modify);
+     struct node *traverse=list.head;
+    if(traverse==NULL)
+        printf("\nNO CURRENCIES IN LIST\n");
+    else
+    {
+        while(traverse!=NULL)
+        {
+            if(strcmp(traverse->currency.name,modify)==0)
+            {
+                printf("\nEnter the new rate : ");
+                int new;
+                scanf("%d%c",&new);
+                traverse->currency.rate=new;
+            }
+            traverse=traverse->link;
+        }
+    }
+}
+//void modCSV()
+void delCurr()
+{
+    printf("Enter the name of the currency to be deleted: ");
+    char modify[40];
+    gets(modify);
+     struct node *traverse=list.head;
+     struct node *previous=NULL;
+    if(traverse==NULL)
+        printf("\nNO CURRENCIES IN LIST\n");
+    else
+    {
+        while(traverse!=NULL)
+        {
+            if(strcmp(traverse->currency.name,modify)==0)
+            {
+                struct node *temp=traverse;
+                if(previous!=NULL)
+                {
+                    previous->link=temp->link;
+                    free(temp);
+                }
+                else
+                {
+                    list.head=temp->link;
+                    free(temp);
+                }
+            }
+            previous=traverse;
+            traverse=traverse->link;
+        }
+    }
+    //delCSV(modify);
+}
+// void delCSV(char *name)
+// {
+//     FILE *fp=fopen("currencies.csv","r");
+//     FILE *fp1=fopen("temp.csv","w");
+//     char str[100];
+//     for(int i=0;i<len;i++)
+//     {
+//         fgets(str,100,fp);
+//         char *temp=strtok(str,",");
+//         if(strcmp(temp,name)!=0)
+//         {
+//             fputs(str,fp1);
+//         }
+//         fclose(fp);
+//         fclose(fp1);
+//         remove("currencies.csv");
+//         rename("temp.csv","currencies.csv");
+//     }
+
+
+
+// }
 
 
 
