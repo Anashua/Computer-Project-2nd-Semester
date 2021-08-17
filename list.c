@@ -24,6 +24,7 @@ void insert(struct mylist*,struct currency);
 struct currency addCurr();
 void displayCurr(struct currency);
 void addNew();
+void addCSV();
 void info();
 ///STATIC  VARIABLES
 static struct mylist list;
@@ -169,21 +170,49 @@ void fileList()
         insert(&list,cur);
     }
 }
+// void addNew()
+// {
+//     printf("\nEnter data for a new curency\n");
+//     struct currency data;
+//     data=addCurr();
+//     insert(&list,data);
+// }
+// //ADDS A CURRENCY TO THE CSV FILE 
+// void addCSV(struct currency cur)
+// {
+//     FILE *fp=fopen("currencies.csv","a");
+//     if(fp!=NULL)
+//     {
+        
+//     }
+// }
 void addNew()
 {
     printf("\nEnter data for a new curency\n");
     struct currency data;
     data=addCurr();
     insert(&list,data);
+    int ch;
+    printf("Do you want to save currency to memory: (1->Yes/0->No) : ");
+    scanf("%d",&ch);
+    if(ch==1)
+    {
+        addCSV(data);
+    }
+   
 }
 //ADDS A CURRENCY TO THE CSV FILE 
 void addCSV(struct currency cur)
 {
-    FILE *fp=fopen("currencies.csv","a");
+    FILE *fp=fopen("currencies.csv","a+");
     if(fp!=NULL)
     {
-        
-    }
+        fputc('\n',fp);
+        fputs(cur.name,fp);
+        fprintf(fp,",%f",cur.rate);
+    }  
+    fclose(fp); 
 }
+
 
 
