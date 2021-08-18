@@ -4,7 +4,7 @@
 #include<stdbool.h>
 #include<string.h>
 #include<stdlib.h>
-#define FILENAME "C:\\anish\\Currency1.csv" //$Replace FILENAME with the corresponding .csv file on your system.
+#define FILENAME "C:\\anish\\Currency1.csv" //$Replace path with the corresponding .csv file on your system.
 struct currency
 {
     char  name[40];
