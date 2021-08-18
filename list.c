@@ -289,31 +289,31 @@ void delCurr()
             traverse=traverse->link;
         }
     }
-    delCSV(modify);
+    //delCSV(modify);
 }
 
-void delCSV(char *name)
-{
-    FILE *fp=fopen("currencies.csv","r");
-    FILE *fp1=fopen("temp.csv","w");
-    char str[100];
-    for(int i=0;i<len;i++)
-    {
-        fgets(str,100,fp);
-        char copy[100];
-        strcpy(copy,str);
-        char *temp=strtok(copy,",");
-        if(strcmp(temp,name)!=0)
-        {
-            fputs(str,fp1);
-            fputc('\n',fp1);
-        }
-    }
-    fclose(fp);
-    fclose(fp1);
-    remove("currencies.csv");
-    rename("temp.csv","currencies.csv");
-}
+// void delCSV(char *name)
+// {
+//     FILE *fp=fopen("currencies.csv","r");
+//     FILE *fp1=fopen("temp.csv","w");
+//     char str[100];
+//     for(int i=0;i<len;i++)
+//     {
+//         fgets(str,100,fp);
+//         char copy[100];
+//         strcpy(copy,str);
+//         char *temp=strtok(copy,",");
+//         if(strcmp(temp,name)!=0)
+//         {
+//             fputs(str,fp1);
+//             fputc('\n',fp1);
+//         }
+//     }
+//     fclose(fp);
+//     fclose(fp1);
+//     remove("currencies.csv");
+//     rename("temp.csv","currencies.csv");
+// }
 void currConvertMenu()
 {
     struct currency cur;
