@@ -248,7 +248,9 @@ void modCSV(char *name,int new)
         }
         else
         {
-            fprintf(fp1,"%s,%d\n",name,new);
+            char buff[50];
+            snprintf(buff,50,"%s,%d\n",temp,new);
+            fputs(buff,fp1);
         }
     }
     fclose(fp);
