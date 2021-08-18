@@ -26,11 +26,14 @@ void displayCurr(struct currency);
 void addNew();
 void addCSV();
 void modCurr();
+void modCSV(char*,int);
 void delCurr();
 void delCSV(char*);
 void info();
+void searchCurr();
 void currConvertMenu();
 float currConv(char c1[], char c2[], struct node* n,int c, struct currency cur);
+
 ///STATIC  VARIABLES
 static struct mylist list;
 static int len=0;
@@ -147,6 +150,7 @@ void info()
             case 6:
                     //FUNCTION TO SEARCH A Currency will print details of that currency
                     searchCurr();
+                    
                     break;
             case 7:
                    flag=false;
@@ -184,7 +188,7 @@ void addNew()
     insert(&list,data);
     int ch;
     printf("Do you want to save currency to memory: (1->Yes/0->No) : ");
-    scanf("%d",&ch);
+    scanf("%d%c",&ch);
     if(ch==1)
     {
         addCSV(data);
@@ -208,7 +212,8 @@ void modCurr()
     printf("Enter the name of the currency to be modified : ");
     char modify[40];
     gets(modify);
-     struct node *traverse=list.head;
+    int new;
+    struct node *traverse=list.head;
     if(traverse==NULL)
         printf("\nNO CURRENCIES IN LIST\n");
     else
@@ -218,17 +223,38 @@ void modCurr()
             if(strcmp(traverse->currency.name,modify)==0)
             {
                 printf("\nEnter the new rate : ");
-                int new;
                 scanf("%d%c",&new);
                 traverse->currency.rate=new;
             }
             traverse=traverse->link;
         }
     }
+    modCSV(modify,new);
 }
-void modCSV()
+void modCSV(char *name,int new)
 {
-
+    FILE *fp=fopen("currencies.csv","r");
+    FILE *fp1=fopen("temp.csv","w");
+    char str[100];
+    for(int i=0;i<len;i++)
+    {
+        fgets(str,100,fp);
+        char copy[100];
+        strcpy(copy,str);
+        char *temp=strtok(copy,",");
+        if(strcmp(temp,name)!=0)
+        {
+            fputs(str,fp1);
+        }
+        else
+        {
+            fprintf(fp1,"%s,%d\n",name,new);
+        }
+    }
+    fclose(fp);
+    fclose(fp1);
+    remove("currencies.csv");
+    rename("temp.csv","currencies.csv");
 }
 void delCurr()
 {
@@ -261,31 +287,31 @@ void delCurr()
             traverse=traverse->link;
         }
     }
-    //delCSV(modify);
+    delCSV(modify);
 }
 
-// void delCSV(char *name)
-// {
-//     FILE *fp=fopen("currencies.csv","r");
-//     FILE *fp1=fopen("temp.csv","w");
-//     char str[100];
-//     for(int i=0;i<len;i++)
-//     {
-//         fgets(str,100,fp);
-//         char copy[100];
-//         strcpy(copy,str);
-//         char *temp=strtok(copy,",");
-//         if(strcmp(temp,name)!=0)
-//         {
-//             fputs(str,fp1);
-//             fputc('\n',fp1);
-//         }
-//     }
-//     fclose(fp);
-//     fclose(fp1);
-//     remove("currencies.csv");
-//     rename("temp.csv","currencies.csv");
-// }
+void delCSV(char *name)
+{
+    FILE *fp=fopen("currencies.csv","r");
+    FILE *fp1=fopen("temp.csv","w");
+    char str[100];
+    for(int i=0;i<len;i++)
+    {
+        fgets(str,100,fp);
+        char copy[100];
+        strcpy(copy,str);
+        char *temp=strtok(copy,",");
+        if(strcmp(temp,name)!=0)
+        {
+            fputs(str,fp1);
+            fputc('\n',fp1);
+        }
+    }
+    fclose(fp);
+    fclose(fp1);
+    remove("currencies.csv");
+    rename("temp.csv","currencies.csv");
+}
 void currConvertMenu()
 {
     struct currency cur;
@@ -335,6 +361,27 @@ float currConv(char c1[], char c2[], struct node* n,int c, struct currency cur)
     float fin = inr*rate2;
     return fin;
 }
-
+void searchCurr()
+{
+    bool choice=false;
+    printf("Enter the name of the currency to be searched");
+    char name[100];
+    gets(name);
+    struct node* traverse=list.head;
+    while(traverse!=NULL)
+    {
+        if(strcmp(traverse->currency.name,name)==0)
+        {
+            choice =true;
+            printf("\nRequired currency values are :\n");
+            displayCurr(traverse->currency);
+        }
+       traverse=traverse->link;
+    }
+    if(choice ==false)
+    {
+        printf("\nThe required currency is not present in list \n");
+    }
+}
 
 
