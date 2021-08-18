@@ -29,6 +29,8 @@ void modCurr();
 void delCurr();
 void delCSV(char*);
 void info();
+void currConvertMenu();
+float currConv(char c1[], char c2[], struct node* n,int c, struct currency cur);
 ///STATIC  VARIABLES
 static struct mylist list;
 static int len=0;
@@ -106,7 +108,7 @@ struct currency addCurr()
 ///DISPLAYS A SINGLE CURRENCY
 void displayCurr(struct currency cur)
 {
-    printf("%s : %f \n",cur.name,cur.rate);
+    printf("\n%s : %f \n",cur.name,cur.rate);
 }
 void info()
 {
@@ -120,19 +122,15 @@ void info()
         printf("\n3. Delete a currency from the given list:\n");
         printf("\n4. Display list of currencies avaliable: \n");
         printf("\n5. Modify currency value: \n");
-        printf("\n6. Exit function:\n");
+        printf("\n6. Search for currency details:\n");
+        printf("\n7. Exit function:\n");
         scanf("%d%c",&choice);
         switch(choice)
         {
             case 1:
-                    printf("\n*****************Currency convertor function********************\n");
+                    currConvertMenu();
                     break;
             case 2:
-                    ////Call add currency function and add to a linked list
-                    // printf("\nEnter data for a new curency\n");
-                    // struct currency data;
-                    // data=addCurr();
-                    // insert(&list,data);
                     addNew();
                     break;
             case 3:
@@ -147,6 +145,10 @@ void info()
                     modCurr();
                     break;
             case 6:
+                    //FUNCTION TO SEARCH A Currency will print details of that currency
+                    searchCurr();
+                    break;
+            case 7:
                    flag=false;
         } 
     }
@@ -224,7 +226,10 @@ void modCurr()
         }
     }
 }
-//void modCSV()
+void modCSV()
+{
+
+}
 void delCurr()
 {
     printf("Enter the name of the currency to be deleted: ");
@@ -258,6 +263,7 @@ void delCurr()
     }
     //delCSV(modify);
 }
+
 // void delCSV(char *name)
 // {
 //     FILE *fp=fopen("currencies.csv","r");
@@ -266,20 +272,69 @@ void delCurr()
 //     for(int i=0;i<len;i++)
 //     {
 //         fgets(str,100,fp);
-//         char *temp=strtok(str,",");
+//         char copy[100];
+//         strcpy(copy,str);
+//         char *temp=strtok(copy,",");
 //         if(strcmp(temp,name)!=0)
 //         {
 //             fputs(str,fp1);
+//             fputc('\n',fp1);
 //         }
-//         fclose(fp);
-//         fclose(fp1);
-//         remove("currencies.csv");
-//         rename("temp.csv","currencies.csv");
 //     }
-
-
-
+//     fclose(fp);
+//     fclose(fp1);
+//     remove("currencies.csv");
+//     rename("temp.csv","currencies.csv");
 // }
+void currConvertMenu()
+{
+    struct currency cur;
+    struct node* n=list.head;
+    printf("Would you like to add a currency or choose from the list given below?\nChoose an option");
+    printf("\n1.Add a new currency: ");
+    printf("\n2.Choose from the given list: ");
+    int choice;
+    scanf("%d%c", &choice);
+    switch(choice){
+    case 1:
+        addNew();
+    case 2:
+        display(&list);
+        printf("\nPlease enter your currency: ");
+        char curr[40];
+        gets(curr);
+        int current;
+        printf("Please enter the amount to convert : ");
+        scanf("%d%c",&current);
+        char curr2[40];
+        printf("\nPlease enter the currency you would like to convert it to : ");
+        gets(curr2);
+        float converted;
+        converted = currConv(curr,curr2, n,current, cur);
+        printf("The value in the required currency is : %f ", converted);
+        break;
+    default:
+        printf("\nInvalid choice.");
+    }
+}
+float currConv(char c1[], char c2[], struct node* n,int c, struct currency cur)
+{
+    float rate1;
+    float rate2;
+    while(n!=NULL)
+    {
+           if(strcmp(c1,n->currency.name)==0){
+                rate1 = n->currency.rate;
+           }
+           if(strcmp(c2,n->currency.name)==0){
+                rate2 = n->currency.rate;
+           }
+           n=n->link;
+    }
+    float inr = c/rate1;
+    float fin = inr*rate2;
+    return fin;
+}
 
 
 
