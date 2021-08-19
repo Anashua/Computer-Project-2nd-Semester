@@ -229,7 +229,14 @@ void modCurr()
             traverse=traverse->link;
         }
     }
-    modCSV(modify,new);
+    printf("\nDo you wish to delete currency data permanently from memory? (1->Yes\0->No) : ");
+    int cho;
+    scanf("%d%c",&cho);
+    if(cho==1)
+    {
+        modCSV(modify,new);
+    }
+    return;
 }
 void modCSV(char *name,int new)
 {
@@ -284,36 +291,47 @@ void delCurr()
                     list.head=temp->link;
                     free(temp);
                 }
+                printf("\nDo you wish to delete currency data permanently from memory? (1->Yes\0->No) : ");
+                int cho;
+                scanf("%d%c",&cho);
+                if(cho==1)
+                {
+                    delCSV(modify);
+                }
+                return;
             }
-            previous=traverse;
-            traverse=traverse->link;
+            else
+            {
+                previous=traverse;
+                traverse=traverse->link;
+            }
         }
+        printf("\nCurrency not in list\n");
     }
-    //delCSV(modify);
+    
 }
 
-// void delCSV(char *name)
-// {
-//     FILE *fp=fopen("currencies.csv","r");
-//     FILE *fp1=fopen("temp.csv","w");
-//     char str[100];
-//     for(int i=0;i<len;i++)
-//     {
-//         fgets(str,100,fp);
-//         char copy[100];
-//         strcpy(copy,str);
-//         char *temp=strtok(copy,",");
-//         if(strcmp(temp,name)!=0)
-//         {
-//             fputs(str,fp1);
-//             fputc('\n',fp1);
-//         }
-//     }
-//     fclose(fp);
-//     fclose(fp1);
-//     remove("currencies.csv");
-//     rename("temp.csv","currencies.csv");
-// }
+void delCSV(char *name)
+{
+    FILE *fp=fopen("currencies.csv","r");
+    FILE *fp1=fopen("temp.csv","w");
+    char str[100];
+    for(int i=0;i<len;i++)
+    {
+        fgets(str,100,fp);
+        char copy[100];
+        strcpy(copy,str);
+        char *temp=strtok(copy,",");
+        if(strcmp(temp,name)!=0)
+        {
+            fputs(str,fp1);
+        }
+    }
+    fclose(fp);
+    fclose(fp1);
+    remove("currencies.csv");
+    rename("temp.csv","currencies.csv");
+}
 void currConvertMenu()
 {
     struct currency cur;
